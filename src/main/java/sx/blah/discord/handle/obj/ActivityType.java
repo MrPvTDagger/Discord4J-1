@@ -24,5 +24,9 @@ public enum ActivityType {
 	 * The type of watching.
 	 * Displays: Watching xxx
 	 */
-	WATCHING
+	WATCHING,
+	/**
+	 * Experimental: Voice Presence
+	 */
+	IN_VOICE,
 }
