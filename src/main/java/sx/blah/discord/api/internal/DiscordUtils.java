@@ -346,7 +346,7 @@ public class DiscordUtils {
 			if (json.channels != null)
 				for (ChannelObject channelJSON : json.channels) {
 					IChannel channel = getChannelFromJSON(shard, guild, channelJSON);
-					if (channelJSON.type == ChannelObject.Type.GUILD_TEXT) {
+					if (channelJSON.type == ChannelObject.Type.GUILD_TEXT || channelJSON.type == ChannelObject.Type.GUILD_NEWS) {
 						guild.channels.put(channel);
 					} else if (channelJSON.type == ChannelObject.Type.GUILD_VOICE) {
 						guild.voiceChannels.put((IVoiceChannel) channel);
@@ -542,7 +542,7 @@ public class DiscordUtils {
 				User recipient = getUserFromJSON(shard, json.recipients[0]);
 				channel = new PrivateChannel(client, recipient, id);
 			}
-		} else if (json.type == ChannelObject.Type.GUILD_TEXT || json.type == ChannelObject.Type.GUILD_VOICE) {
+		} else if (json.type == ChannelObject.Type.GUILD_TEXT || json.type == ChannelObject.Type.GUILD_NEWS || json.type == ChannelObject.Type.GUILD_VOICE) {
 			Pair<Cache<PermissionOverride>, Cache<PermissionOverride>> overrides =
 					getPermissionOverwritesFromJSONs(client, json.permission_overwrites);
 			long categoryID = json.parent_id == null ? 0L : Long.parseUnsignedLong(json.parent_id);
@@ -557,14 +557,14 @@ public class DiscordUtils {
 				channel.roleOverrides.putAll(overrides.getRight());
 				channel.setCategoryID(categoryID);
 
-				if (json.type == ChannelObject.Type.GUILD_TEXT) {
+				if (json.type == ChannelObject.Type.GUILD_TEXT || json.type == ChannelObject.Type.GUILD_NEWS) {
 					channel.setTopic(json.topic);
 				} else {
 					VoiceChannel vc = (VoiceChannel) channel;
 					vc.setUserLimit(json.user_limit);
 					vc.setBitrate(json.bitrate);
 				}
-			} else if (json.type == ChannelObject.Type.GUILD_TEXT) {
+			} else if (json.type == ChannelObject.Type.GUILD_TEXT || json.type == ChannelObject.Type.GUILD_NEWS) {
 				channel = new Channel(client, json.name, id, guild, json.topic, json.position, json.nsfw, categoryID,
 						overrides.getRight(), overrides.getLeft());
 			} else if (json.type == ChannelObject.Type.GUILD_VOICE) {
