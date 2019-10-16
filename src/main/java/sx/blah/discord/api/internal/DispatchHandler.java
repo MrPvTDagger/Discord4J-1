@@ -550,7 +550,7 @@ class DispatchHandler {
 			Guild guild = (Guild) shard.getGuildByID(Long.parseUnsignedLong(json.guild_id));
 			if (guild != null) {
 				IChannel channel = DiscordUtils.getChannelFromJSON(shard, guild, json);
-				if (json.type == ChannelObject.Type.GUILD_TEXT) {
+				if (json.type == ChannelObject.Type.GUILD_TEXT || json.type == ChannelObject.Type.GUILD_NEWS) {
 					guild.channels.put(channel);
 					client.dispatcher.dispatch(new ChannelCreateEvent(channel));
 				} else if (json.type == ChannelObject.Type.GUILD_VOICE) {
@@ -566,7 +566,7 @@ class DispatchHandler {
 	}
 
 	private void channelDelete(ChannelObject json) {
-		if (json.type == ChannelObject.Type.GUILD_TEXT) {
+		if (json.type == ChannelObject.Type.GUILD_TEXT || json.type == ChannelObject.Type.GUILD_NEWS) {
 			Channel channel = (Channel) client.getChannelByID(Long.parseUnsignedLong(json.id));
 			if (channel != null) {
 				if (!channel.isPrivate())
@@ -600,7 +600,7 @@ class DispatchHandler {
 	}
 
 	private void channelUpdate(ChannelObject json) {
-		if (json.type == ChannelObject.Type.GUILD_TEXT) {
+		if (json.type == ChannelObject.Type.GUILD_TEXT || json.type == ChannelObject.Type.GUILD_NEWS) {
 			Channel toUpdate = (Channel) shard.getChannelByID(Long.parseUnsignedLong(json.id));
 			if (toUpdate != null) {
 				IChannel oldChannel = toUpdate.copy();

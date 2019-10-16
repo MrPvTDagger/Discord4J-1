@@ -45,6 +45,8 @@ public class ChannelObject {
 		public static final int GUILD_VOICE = 2;
 		public static final int GROUP_PRIVATE = 3;
 		public static final int GUILD_CATEGORY = 4;
+		public static final int GUILD_NEWS = 5;
+		public static final int GUILD_STORE = 6;
 	}
 
 }
