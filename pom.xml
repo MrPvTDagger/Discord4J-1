@@ -169,18 +169,6 @@
 		</dependency>
 
 		<dependency>
-			<groupId>com.googlecode.soundlibs</groupId>
-			<artifactId>tritonus-share</artifactId>
-			<version>0.3.7.4</version>
-		</dependency>
-
-		<dependency> <!--Thanks DV8!-->
-			<groupId>org.tritonus</groupId>
-			<artifactId>tritonus-dsp</artifactId>
-			<version>0.3.6</version>
-		</dependency>
-
-		<dependency>
 			<groupId>com.vdurmont</groupId>
 			<artifactId>emoji-java</artifactId>
 			<version>4.0.0</version>
